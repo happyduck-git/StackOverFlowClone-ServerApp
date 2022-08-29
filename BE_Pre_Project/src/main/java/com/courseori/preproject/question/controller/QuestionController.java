@@ -8,14 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/questions")
+@Validated
 public class QuestionController {
 
     private QuestionService questionService;
@@ -50,7 +53,7 @@ public class QuestionController {
     }
     
     @PostMapping
-    public ResponseEntity postQuestion(@RequestBody QuestionDto.Post requestBody) {
+    public ResponseEntity postQuestion(@RequestBody @Valid QuestionDto.Post requestBody) {
 
         Question question = questionMapper.questionPostDtoToQuestion(requestBody);
 
@@ -69,7 +72,7 @@ public class QuestionController {
         requestBody.setQuestionId(questionId);
 
         Question mappedQuestion = questionMapper.questionPatchDtoTOQuestion(requestBody);
-       
+
 
         Question savedQuestion = questionService.updateQuestion(mappedQuestion);
 

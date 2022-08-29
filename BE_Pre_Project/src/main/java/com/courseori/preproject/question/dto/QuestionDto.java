@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class QuestionDto {
     public static class Post {
 
         private long userId;
+        @NotBlank
         private String title;
         private String body;
         private List<String> tagList;
