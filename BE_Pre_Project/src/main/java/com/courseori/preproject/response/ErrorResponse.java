@@ -1,5 +1,6 @@
 package com.courseori.preproject.response;
 
+import com.courseori.preproject.exception.ExceptionCode;
 import lombok.Getter;
 import org.springframework.validation.BindingResult;
 
@@ -11,8 +12,16 @@ import java.util.stream.Collectors;
 @Getter
 public class ErrorResponse {
 
+    private int status;
+    private String message;
     private List<FieldError> fieldErrorList;
     private List<ConstraintViolationError> violationErrors;
+
+    private ErrorResponse(final int status,
+                          final String message) {
+        this.status = status;
+        this.message = message;
+    }
 
     private ErrorResponse(final List<FieldError> fieldErrors,
                           final List<ConstraintViolationError> violationErrors) {
@@ -28,7 +37,11 @@ public class ErrorResponse {
         return new ErrorResponse(null, ConstraintViolationError.of(violations));
     }
 
-    //DTO 멤버 변수 필드 유효성 검증 시 에러 핸들링
+    public static ErrorResponse of(ExceptionCode exceptionCode) {
+        return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage());
+    }
+
+    //DTO 멤버 변수 필드 유효성 검증 시 예외 핸들링
     @Getter
     public static class FieldError {
         private String field;
