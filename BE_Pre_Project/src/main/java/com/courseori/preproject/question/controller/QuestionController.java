@@ -2,7 +2,6 @@ package com.courseori.preproject.question.controller;
 
 import com.courseori.preproject.question.dto.QuestionDto;
 import com.courseori.preproject.question.entity.Question;
-import com.courseori.preproject.question.filter.QuestionFilter;
 import com.courseori.preproject.question.mapper.QuestionMapper;
 import com.courseori.preproject.question.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Enumerated;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -53,14 +51,14 @@ public class QuestionController {
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity getSortedQuestions(@RequestParam(required=true,defaultValue="No answers") String filter,
-                                             @RequestParam(required=true,defaultValue="Recent activity") String sort) {
-
-
-
-
-    }
+//    @GetMapping
+//    public ResponseEntity getSortedQuestions(@RequestParam(required=true,defaultValue="No answers") String filter,
+//                                             @RequestParam(required=true,defaultValue="Recent activity") String sort) {
+//
+//
+//
+//
+//    }
     
     @PostMapping
     public ResponseEntity postQuestion(@RequestBody QuestionDto.Post requestBody) {

@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     //쿼리문 작성 필요
-    @Query(value = )
+    @Query(value = "SELECT q FROM Question q WHERE c.coffeeId = :coffeeId")
     Optional<List<Question>> findFilteredQuestion(String filter, String sort);
 
 
