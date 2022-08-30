@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -50,6 +51,9 @@ public class QuestionController {
         List<QuestionDto.Response> responses = questionMapper.questionsToQuestionResponses(questions);
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity getSortedQuestions(@RequestParam @Enumerated )
     
     @PostMapping
     public ResponseEntity postQuestion(@RequestBody QuestionDto.Post requestBody) {
