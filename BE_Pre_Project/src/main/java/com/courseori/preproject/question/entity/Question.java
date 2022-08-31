@@ -35,8 +35,10 @@ public class Question {
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime modifiedAt = LocalDateTime.now();
-    private int views = 0;
-    private int votes = 0;
+    private int views;
+    private int votes;
+//    private int views = 0;
+//    private int votes = 0;
 
     @OneToMany(mappedBy = "question")
     private List<Answer> answerList = new ArrayList<>();

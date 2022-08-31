@@ -1,5 +1,6 @@
 package com.courseori.preproject.question.service;
 
+import com.courseori.preproject.QuestionPredicate;
 import com.courseori.preproject.question.entity.Question;
 import com.courseori.preproject.question.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
@@ -77,6 +79,14 @@ public class QuestionService {
         return findQuestion;
     }
 
+
+
+    /* QueryDsl test */
+    @Transactional(readOnly = true)
+    public Page<Question> search(String sort, int page, int size) {
+//    return questionRepository.findAll(QuestionPredicate.search(sort), pageable);
+      return questionRepository.findAll(QuestionPredicate.search(sort), PageRequest.of(page,size));
+    }
 
 }
 

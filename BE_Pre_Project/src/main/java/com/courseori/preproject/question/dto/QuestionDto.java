@@ -28,6 +28,9 @@ public class QuestionDto {
         private String title;
         @NotBlank
         private String body;
+        private int views;
+        private int votes;
+
         private List<String> tagList;
         private List<Answer> answerList;
 
