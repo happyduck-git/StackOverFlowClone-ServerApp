@@ -62,12 +62,13 @@ dependencies {
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
+	//to remove "warning: unknown enum constant When.MAYBE" warning
+	implementation 'com.google.code.findbugs:jsr305:3.0.2'
+
 }
 
 
-/*
- * queryDSL 설정 추가
- */
+/* queryDSL 설정 추가 */
 // querydsl에서 사용할 경로 설정
 def querydslDir = "$buildDir/generated/querydsl"
 // JPA 사용 여부와 사용할 경로를 설정
