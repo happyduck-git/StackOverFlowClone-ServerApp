@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
-public interface QuestionRepository extends JpaRepository<Question, Long>, QuerydslPredicateExecutor<Question> {
+public interface QuestionRepository extends JpaRepository<Question, Long>, QuerydslPredicateExecutor<Question>, QuestionRepositoryCustom {
 
     //쿼리문 작성 필요
 //    @Query(value = "SELECT q FROM Question q WHERE c.coffeeId = :coffeeId")
@@ -24,6 +25,7 @@ public List<Catalog> findRootSubCatalogs(String nameContains, String searchDateB
  return query.fetch();
 }
      */
+
 
 
 }

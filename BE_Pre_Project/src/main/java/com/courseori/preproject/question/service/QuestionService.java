@@ -1,6 +1,5 @@
 package com.courseori.preproject.question.service;
 
-import com.courseori.preproject.QuestionPredicate;
 import com.courseori.preproject.question.entity.Question;
 import com.courseori.preproject.question.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -83,9 +83,10 @@ public class QuestionService {
 
     /* QueryDsl test */
     @Transactional(readOnly = true)
-    public Page<Question> search(String sort, int page, int size) {
-//    return questionRepository.findAll(QuestionPredicate.search(sort), pageable);
-      return questionRepository.findAll(QuestionPredicate.search(sort), PageRequest.of(page,size));
+    public List<Question> search(String sort) {
+        List<Question> foundQuestionList = questionRepository.findSortedQuestions(sort);
+        return foundQuestionList;
+
     }
 
 }
