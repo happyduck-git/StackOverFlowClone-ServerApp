@@ -8,23 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long>, QuestionRepositoryCustom {
 
-    //쿼리문 작성 필요
-//    @Query(value = "SELECT q FROM Question q WHERE c.coffeeId = :coffeeId")
-//    Optional<List<Question>> findFilteredQuestion(String filter, String sort);
-
-
-    /*
-    @Override
-public List<Catalog> findRootSubCatalogs(String nameContains, String searchDateBy, DateTime from, DateTime to) {
- QCatalog qCatalog = QCatalog.catalog;
- JPQLQuery query = from(qCatalog)
-   .where(qCatalog.parentId.isNull())
-   .where(CatalogPredicate.searchList(nameContains, searchDateBy, from, to))
-   .orderBy(qCatalog.name.asc());
- return query.fetch();
-}
-     */
-
-
 
 }

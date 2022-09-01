@@ -48,30 +48,6 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 
     }
 
-//    @Override
-//    public List<Question> findBySortUsingQuerydslPagination(String sort, int page, int size) {
-//        List<Question> questions;
-//
-//        if(sort.equals("HighestScore")) {
-//
-//            questions = jpaQueryFactory.selectFrom(question)
-//                    .orderBy(question.votes.desc())
-//                    .offset(page)
-//                    .limit(size)
-//                    .fetch();
-//            return questions;
-//
-//        } else {
-//
-//            questions = jpaQueryFactory.selectFrom(question)
-//                    .orderBy(question.createdAt.desc())
-//                    .offset(page)
-//                    .limit(size)
-//                    .fetch();
-//            return questions;
-//        }
-//    }
-
 
     @Override
     public Page<Question> findBySortUsingQuerydslPagination(String sort, Pageable pageable) {
@@ -79,7 +55,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
         JPAQuery<Question> query;
 
 
-        if(sort.equals("HighestScore")) {
+        if (sort.equals("HighestScore")) {
 
             questions = jpaQueryFactory.selectFrom(question)
                     .orderBy(question.votes.desc())
@@ -89,6 +65,19 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 
             query = jpaQueryFactory.selectFrom(question)
                     .orderBy(question.votes.desc());
+            return PageableExecutionUtils.getPage(questions, pageable, query::fetchCount);
+
+        } else if (sort.equals("MostFrequent")) {
+
+            questions = jpaQueryFactory.selectFrom(question)
+                    .orderBy(question.views.desc())
+                    .offset(pageable.getOffset())
+                    .limit(pageable.getPageSize())
+                    .fetch();
+
+            query = jpaQueryFactory.selectFrom(question)
+                    .orderBy(question.views.desc());
+
             return PageableExecutionUtils.getPage(questions, pageable, query::fetchCount);
 
         } else {
