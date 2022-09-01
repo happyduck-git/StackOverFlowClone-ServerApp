@@ -5,12 +5,12 @@ import com.courseori.preproject.question.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -19,10 +19,12 @@ public class QuestionService {
 
     private QuestionRepository questionRepository;
 
-    @Autowired
+
+        @Autowired
     public QuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
+
 
 
     public Question findQuestion(long questionId) {
@@ -32,9 +34,12 @@ public class QuestionService {
     }
 
     public Page<Question> findQuestions(int page, int size) {
-        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionId").descending()));
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("questionId").descending());
+
+        return questionRepository.findAll(pageable);
     }
-    
+
      public Question createQuestion(Question question){
 
         Question postQuestion = questionRepository.save(question);
@@ -67,8 +72,6 @@ public class QuestionService {
         return questionRepository.save(patchQuestion);
     }
 
-
-
     //Question 이 있는지 없다면 예외
     public Question findVerifiedQuestion(long questionId){
         Optional<Question> optionalQuestion =
@@ -82,9 +85,20 @@ public class QuestionService {
 
 
     /* QueryDsl test */
+    /* no pagination */
+//    @Transactional(readOnly = true)
+//    public List<Question> search(String sort) {
+//        List<Question> foundQuestionList = questionRepositoryImpl.findBySortUsingQuerydsl(sort);
+//        return foundQuestionList;
+//
+//    }
+
+    /* has pagination */
     @Transactional(readOnly = true)
-    public List<Question> search(String sort) {
-        List<Question> foundQuestionList = questionRepository.findSortedQuestions(sort);
+    public Page<Question> search(String sort, int page, int size) {
+
+        Pageable pageable1 = PageRequest.of(page, size);
+        Page<Question> foundQuestionList = questionRepository.findBySortUsingQuerydslPagination(sort, pageable1);
         return foundQuestionList;
 
     }

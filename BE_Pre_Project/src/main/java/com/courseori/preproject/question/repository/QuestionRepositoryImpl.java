@@ -2,33 +2,108 @@ package com.courseori.preproject.question.repository;
 
 import com.courseori.preproject.question.entity.QQuestion;
 import com.courseori.preproject.question.entity.Question;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-public class QuestionRepositoryImpl extends QuerydslRepositorySupport implements QuestionRepositoryCustom {
+public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 
+    private final JPAQueryFactory jpaQueryFactory;
 
     public QuestionRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
-        super(Question.class);
+        this.jpaQueryFactory = jpaQueryFactory;
     }
+
+    QQuestion question = QQuestion.question;
 
     @Override
-    @Autowired
-    public void setEntityManager(EntityManager entityManager) {
-        super.setEntityManager(entityManager);
+    public List<Question> findBySortUsingQuerydsl(String sort) {
+
+        List<Question> questions;
+
+        if(sort.equals("HighestScore")) {
+
+            questions = jpaQueryFactory.selectFrom(question)
+                    .orderBy(question.votes.desc())
+                    .offset(1)
+                    .limit(3)
+                    .fetch();
+            return questions;
+
+        } else {
+
+            questions = jpaQueryFactory.selectFrom(question)
+                    .orderBy(question.createdAt.desc())
+                    .offset(1)
+                    .limit(3)
+                    .fetch();
+            return questions;
+        }
+
     }
+
+//    @Override
+//    public List<Question> findBySortUsingQuerydslPagination(String sort, int page, int size) {
+//        List<Question> questions;
+//
+//        if(sort.equals("HighestScore")) {
+//
+//            questions = jpaQueryFactory.selectFrom(question)
+//                    .orderBy(question.votes.desc())
+//                    .offset(page)
+//                    .limit(size)
+//                    .fetch();
+//            return questions;
+//
+//        } else {
+//
+//            questions = jpaQueryFactory.selectFrom(question)
+//                    .orderBy(question.createdAt.desc())
+//                    .offset(page)
+//                    .limit(size)
+//                    .fetch();
+//            return questions;
+//        }
+//    }
+
 
     @Override
-    public List<Question> findSortedQuestions(String sort) {
-        JPAQueryFactory queryFactory = new JPAQueryFactory(this.getEntityManager());
-        QQuestion question = QQuestion.question;
+    public Page<Question> findBySortUsingQuerydslPagination(String sort, Pageable pageable) {
+        List<Question> questions;
+        JPAQuery<Question> query;
 
-        return queryFactory.selectFrom(question).orderBy(question.views.asc()).fetch();
+
+        if(sort.equals("HighestScore")) {
+
+            questions = jpaQueryFactory.selectFrom(question)
+                    .orderBy(question.votes.desc())
+                    .offset(pageable.getOffset())
+                    .limit(pageable.getPageSize())
+                    .fetch();
+
+            query = jpaQueryFactory.selectFrom(question)
+                    .orderBy(question.votes.desc());
+            return PageableExecutionUtils.getPage(questions, pageable, query::fetchCount);
+
+        } else {
+
+            questions = jpaQueryFactory.selectFrom(question)
+                    .orderBy(question.createdAt.desc())
+                    .offset(pageable.getOffset())
+                    .limit(pageable.getPageSize())
+                    .fetch();
+
+            query =  jpaQueryFactory.selectFrom(question)
+                    .orderBy(question.createdAt.desc());
+
+            return PageableExecutionUtils.getPage(questions, pageable, query::fetchCount);
+        }
     }
+
 }

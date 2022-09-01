@@ -52,27 +52,16 @@ public class QuestionController {
     }
 
     @GetMapping("/sort")
-    public ResponseEntity getSortedQuestions(@RequestParam String sort) {
+    public ResponseEntity getSortedQuestions(@RequestParam String sort,
+                                             @Positive @RequestParam int page,
+                                             @Positive @RequestParam int size) {
 
-
-//        Page<Question> questionPage = questionService.search(sort,page - 1, size);
-//
-//        List<Question> questions = questionPage.getContent();
-
-        List<Question> questions = questionService.search(sort);
-
+        Page<Question> questionspage = questionService.search(sort, page-1, size);
+        List<Question> questions = questionspage.getContent();
         List<QuestionDto.Response> responses = questionMapper.questionsToQuestionResponses(questions);
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
-//    @GetMapping
-//    public ResponseEntity getSortedQuestions(@RequestParam(required=true,defaultValue="No answers") String filter,
-//                                             @RequestParam(required=true,defaultValue="Recent activity") String sort) {
-//
-//
-//
-//
-//    }
     
     @PostMapping
     public ResponseEntity postQuestion(@RequestBody QuestionDto.Post requestBody) {
