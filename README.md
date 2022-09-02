@@ -18,8 +18,7 @@ StackOverFlow의 Questions tab, 글쓰기, 로그인, 회원가입 기능을 구
     - 형상관리 툴: Git
 
 ## 요구사항 분석 
-<br>
-<img width="656" alt="사용자 요구사항 정의서" src="https://user-images.githubusercontent.com/82161055/188120507-4f56839f-6d91-4cbf-b29e-8f371b44ffaa.png">
+<br><img width="884" alt="Screen Shot 2022-09-02 at 7 34 39 PM" src="https://user-images.githubusercontent.com/82161055/188121598-f420c94f-193f-4ccf-b2ef-bc7836664a61.png">
 
 
 
