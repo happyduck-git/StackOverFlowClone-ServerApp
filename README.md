@@ -16,6 +16,11 @@ StackOverFlow의 Questions tab, 글쓰기, 로그인, 회원가입 기능을 구
     - 개발 언어: Java(JDK 11), JavaScript
     - 데이터베이스: MySQL
     - 형상관리 툴: Git
+    
+## WBS
+<br><img width="938" alt="Screen Shot 2022-09-02 at 8 33 13 PM" src="https://user-images.githubusercontent.com/82161055/188130803-b21fa51e-a6e0-4c92-b23a-dd7268e0769b.png">
+
+
 
 ## 요구사항 분석 
 <br><img width="884" alt="Screen Shot 2022-09-02 at 7 34 39 PM" src="https://user-images.githubusercontent.com/82161055/188121598-f420c94f-193f-4ccf-b2ef-bc7836664a61.png">
