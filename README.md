@@ -18,7 +18,7 @@ StackOverFlow의 Questions tab, 글쓰기, 로그인, 회원가입 기능을 구
     - 형상관리 툴: Git
     
 ## WBS
-<br><img width="938" alt="Screen Shot 2022-09-02 at 8 33 13 PM" src="https://user-images.githubusercontent.com/82161055/188130803-b21fa51e-a6e0-4c92-b23a-dd7268e0769b.png">
+<br><img width="932" alt="Screen Shot 2022-09-02 at 8 34 25 PM" src="https://user-images.githubusercontent.com/82161055/188130956-c14967fa-8a76-48cb-b522-47f0bf00eede.png">
 
 
 
