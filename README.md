@@ -1,1 +1,1 @@
-# seb39_pre_057
+# Stack Over Flow Web Application Clone Project
